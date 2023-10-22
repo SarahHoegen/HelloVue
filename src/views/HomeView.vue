@@ -2,5 +2,5 @@
 
 </script>
 <template>
-    <h1>OIIII</h1>
+    <h1>Iniciando com Vue</h1>
 </template>
