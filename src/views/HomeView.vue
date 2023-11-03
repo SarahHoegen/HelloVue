@@ -1,36 +1,44 @@
-<script>
-export default {
-  data() {
-    return {
-      contador: 0
-    }
-  },
-  methods: {
-    incrementarContador() {
-      this.contador++
-    },
-    decrementarContador() {
-        if (this.contador > 0) {
-            this.contador--
-        }
-    },
-    ZerarContador() {
-        this.contador = 0
-        
-    }
-  },
-  mounted() {
-    console.log(`O valor inicial do contador é ${this.contador}.`)
-  }
+<script setup>
+import { Alert } from 'bootstrap';
+import { ref , onMounted } from 'vue'
+import Modal from "@/components/Modal.vue"
+
+const rawHtml = '<span style="color: red">Este é um texto em vermelho</span>'
+const contador = ref(0)
+const openModal = ref(false)
+
+
+function incrementarContador() {
+    contador.value++
 }
+function decrementarContador() {
+    if (contador.value > 0) {
+      contador.value--
+    }
+ }
+function zerarContador() {
+    showModal();
+    contador.value = 0
+}
+
+function showModal() {
+    openModal.value = true;
+}
+
 </script>
 
 <template>
-    <p>Botões funcionais</p>
+    <font-awesome-icon :icon="['fas', 'house']" /><p>Botões funcionais</p>
     <button @click="incrementarContador">Incrementar</button>
-    <button @click="decrementarContador">Decrementar</button> <br><br>
-    <button @click="ZerarContador">Zerar valor</button>
-    <p>Valor do contador é: {{ contador }}</p>
+    <button @click="decrementarContador">Decrementar</button>
+    <button @click="zerarContador">Zerar valor</button><br>
+    <span>Valor do contador é: {{ contador }}</span>
+    <br>
+    <p>Usando interpolação de textos: {{rawHtml}}</p>
+    <p>Usando v-html: <span v-html="rawHtml"></span></p>
+
+    <Modal :openModal="openModal" @close-modal="openModal = false" />
+
 </template>
   
   <style scoped>
